@@ -1,13 +1,11 @@
 package com.ggperroni.challengemobiledev.view.home
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,18 +17,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.rounded.ArrowBackIosNew
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Folder
+import androidx.compose.material.icons.rounded.FolderOpen
+import androidx.compose.material.icons.rounded.Sensors
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -40,7 +31,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -125,7 +115,7 @@ fun HomeScreen(
                 onClick = { showDialog = true }
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    imageVector = Icons.Rounded.ArrowBackIosNew,
                     contentDescription = "Back",
                     tint = Color.White
                 )
@@ -212,11 +202,14 @@ fun TreeItemView(
         ) {
             Icon(
                 imageVector = when (item.level) {
-                    0 -> Icons.Filled.Person
-                    1 -> Icons.Filled.AccountBox
-                    2 -> Icons.Filled.MailOutline
-                    3 -> Icons.Filled.Phone
-                    else -> Icons.Filled.MoreVert
+                    3 -> Icons.Rounded.Sensors
+                    else -> {
+                        if (isExpanded) {
+                            Icons.Rounded.FolderOpen
+                        } else {
+                            Icons.Rounded.Folder
+                        }
+                    }
                 },
                 contentDescription = "Item",
                 tint = Color.Black,
@@ -234,19 +227,13 @@ fun TreeItemView(
             Spacer(modifier = Modifier.padding(8.dp))
 
             if (item.children.isNotEmpty()) {
-                Icon(
-                    imageVector = if (isExpanded) Icons.Filled.KeyboardArrowDown else Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = "Expand",
-                    tint = Color.Black
-                )
                 if (item.level == 2) {
-                    Spacer(modifier = Modifier.padding(8.dp))
                     IconButton(
                         onClick = { showBottomSheet = true },
                         modifier = Modifier.size(18.dp)
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Create,
+                            imageVector = Icons.Rounded.Edit,
                             contentDescription = "Edit",
                             tint = Color(0xFFFF3B67),
                         )
@@ -281,13 +268,14 @@ fun EditItemBottomSheet(
         Text(
             text = "Edit equipment name",
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Name") }
+            label = { Text("Name") },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(

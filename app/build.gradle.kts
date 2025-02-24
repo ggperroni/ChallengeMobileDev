@@ -45,6 +45,7 @@ dependencies {
 
     implementation(libs.java.jwt)
     implementation(libs.material)
+    implementation(libs.material.icons.extended)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.security.crypto)
     implementation(libs.retrofit)
