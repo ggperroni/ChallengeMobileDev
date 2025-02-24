@@ -141,7 +141,7 @@ fun HomeScreen(
             TreeView(
                 items = treeItems,
                 viewModel = viewModel,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp).height(0.9f.times(600.dp))
             )
         }
     }
